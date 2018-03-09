@@ -24,7 +24,7 @@ services:
 # Setup the PHP container
 ###########################
     php:
-        build: ./docker/php/7.1
+        build: ./docker/php/7.0
         expose:
             - 9000
         volumes:

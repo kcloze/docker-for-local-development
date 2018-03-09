@@ -1,12 +1,19 @@
-# 用docker一键构建开发环境
+# Docker for Building a Local Development Environment
 
-这个项目提供了一键构建LNMP开发环境，基于Linux，建立本地开发环境Nginx、MySQL、PHP;
-Nginx可以设定多个虚拟主机;
+This project provides a basic Docker setup, for building a local development environment for linux, nginx ,mysql, PHP.
+Nginx  can setting multi vhost application development.
+
+## Why?
+
+Why?
+Good question.
+But easy to answer.
+The intent is to provide a starting point for developers to get up and running quickly, using Docker, to build a local development environment.
 
 
+## Installation
 
-## 安装步骤
-
+To get up and running, after cloning the repository:
 
 1. Install Docker. If you’re running a Linux distribution, use its package manager. If you’re using either macOS or Windows, download the respective Docker package installers: [Docker for Mac](https://docs.docker.com/docker-for-mac/) or [Docker for Windows](https://docs.docker.com/docker-for-windows/).
 
@@ -18,16 +25,16 @@ Nginx可以设定多个虚拟主机;
 
 5. Setting  `/etc/hosts`, add `127.0.0.1 www-local.site1.com`.
 
-6. Make sure `/PATH/TO/YOUR/DOCUMENT/ROOT` has index.html and index.php file.
+5. Make sure `/PATH/TO/YOUR/DOCUMENT/ROOT` has index.html and index.php file.
 
-7. Build the configuration by running: `docker-compose up -d`.
+6. Build the configuration by running: `docker-compose up -d`.
 
-8. Open browser urls: `localost:8090` and `www-local.site1.com:8090`.
+7. Open browser urls: `localost:8090` and `www-local.site1.com:8090`.
 
-9. Check log file by runnig `docker-compose logs -f`.
+8. Check log file by runnig `docker-compose logs -f`.
 
 
-### 验证
+### Check That Everything Is Working
 
 To check that the build is working, run `docker-compose ps`.
 This should give you output similar to the below.
@@ -47,10 +54,10 @@ To check that the files are inside the container, run the following command, sub
 docker exec -it dockerforlocaldevelopment_nginx_1 ls -lahrt /var/www/html
 ```
 
-## 贡献
+## Contributing
 
 See the [CONTRIBUTING](CONTRIBUTING.md) file.
 
-## 授权
+## License
 
 This project is licensed under the [MIT License](/LICENSE).
