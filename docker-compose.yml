@@ -11,6 +11,7 @@ services:
 # Setup the Nginx container
 ###########################
     nginx:
+        container_name: nginx-local
         image: daocloud.io/library/nginx:latest
         ports:
             - 8090:80
@@ -24,6 +25,7 @@ services:
 # Setup the PHP container
 ###########################
     php:
+        container_name: php-local
         build: ./docker/php/7.0
         expose:
             - 9000
