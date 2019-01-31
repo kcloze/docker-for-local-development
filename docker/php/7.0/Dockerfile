@@ -1,4 +1,4 @@
-FROM daocloud.io/library/php:7.1-fpm
+FROM daocloud.io/library/php:7.0.13-fpm
 
 
 RUN sed -i "s/archive.ubuntu./mirrors.aliyun./g" /etc/apt/sources.list 
@@ -82,5 +82,12 @@ RUN curl -fsSL 'http://pecl.php.net/get/amqp-1.9.3.tgz' -o amqp.tar.gz \
     && make install \
     ) \
     && rm -r molten \
-    && docker-php-ext-enable molten 
+    && docker-php-ext-enable molten  
 
+ENV PHALCON_VERSION=3.2.4
+RUN curl -sSL "https://codeload.github.com/phalcon/cphalcon/tar.gz/v${PHALCON_VERSION}" | tar -xz \
+    && cd cphalcon-${PHALCON_VERSION}/build \
+    && ./install \
+    && cp ../tests/_ci/phalcon.ini $(php-config --configure-options | grep -o "with-config-file-scan-dir=\([^ ]*\)" | awk -F'=' '{print $2}') \
+    && cd ../../ \
+    && rm -r cphalcon-${PHALCON_VERSION} 
