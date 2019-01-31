@@ -26,7 +26,7 @@ services:
 ###########################
     php:
         container_name: php-local
-        build: ./docker/php/7.1
+        build: ./docker/php/7.2
         expose:
             - 9000
         volumes:
