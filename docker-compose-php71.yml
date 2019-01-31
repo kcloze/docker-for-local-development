@@ -1,0 +1,46 @@
+# Adopt version 2 syntax:
+#   https://docs.docker.com/compose/compose-file/#/versioning
+version: '2'
+
+volumes:
+    database_data:
+        driver: local
+
+services:
+###########################
+# Setup the Nginx container
+###########################
+    nginx:
+        image: daocloud.io/library/nginx:latest
+        ports:
+            - 8090:80
+        volumes:
+            - ./docker/nginx/:/etc/nginx/conf.d/:ro
+            - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+        volumes_from:
+            - php
+
+###########################
+# Setup the PHP container
+###########################
+    php:
+        build: ./docker/php/7.1
+        expose:
+            - 9000
+        volumes:
+            - /Users/apple/data/code/php:/var/www/html:rw
+
+###########################
+# Setup the Database (MySQL) container
+###########################
+    # mysql:
+    #     image: mysql:latest
+    #     expose:
+    #         - 3306
+    #     volumes:
+    #         - database_data:/var/lib/mysql
+    #     environment:
+    #         MYSQL_ROOT_PASSWORD: secret
+    #         MYSQL_DATABASE: project
+    #         MYSQL_USER: project
+    #         MYSQL_PASSWORD: project

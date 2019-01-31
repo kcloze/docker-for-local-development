@@ -27,7 +27,7 @@ To get up and running, after cloning the repository:
 
 5. Make sure `/PATH/TO/YOUR/DOCUMENT/ROOT` has index.html and index.php file.
 
-6. Build the configuration by running: `docker-compose up -d`.
+6. Build the configuration by running: `docker-compose -f docker-compose-php72.yml up -d`.
 
 7. Open browser urls: `localost:8090` and `www-local.site1.com:8090`.
 

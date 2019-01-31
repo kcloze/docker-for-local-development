@@ -1,4 +1,4 @@
-FROM daocloud.io/library/php:7.1-fpm
+FROM daocloud.io/library/php:7.2-fpm
 
 
 RUN sed -i "s/archive.ubuntu./mirrors.aliyun./g" /etc/apt/sources.list 
@@ -44,7 +44,7 @@ RUN curl -fsSL 'http://pecl.php.net/get/amqp-1.9.3.tgz' -o amqp.tar.gz \
     ) \
     && rm -r amqp \
     && docker-php-ext-enable amqp \
-    && curl -fsSL 'http://pecl.php.net/get/swoole-1.10.0.tgz' -o swoole.tar.gz \
+    && curl -fsSL 'http://pecl.php.net/get/swoole-4.2.12.tgz' -o swoole.tar.gz \
     && mkdir -p swoole \
     && tar -xf swoole.tar.gz -C swoole --strip-components=1 \
     && rm swoole.tar.gz \
