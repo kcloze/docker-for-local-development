@@ -35,14 +35,14 @@ services:
 ###########################
 # Setup the Database (MySQL) container
 ###########################
-    # mysql:
-    #     image: mysql:latest
-    #     expose:
-    #         - 3306
-    #     volumes:
-    #         - database_data:/var/lib/mysql
-    #     environment:
-    #         MYSQL_ROOT_PASSWORD: secret
-    #         MYSQL_DATABASE: project
-    #         MYSQL_USER: project
-    #         MYSQL_PASSWORD: project
+    mysql:
+        image: mysql:latest
+        ports:
+            - 3306:3306
+        volumes:
+            - database_data:/var/lib/mysql
+        environment:
+            MYSQL_ROOT_PASSWORD: secret
+            MYSQL_DATABASE: project
+            MYSQL_USER: project
+            MYSQL_PASSWORD: project

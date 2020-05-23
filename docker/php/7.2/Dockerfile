@@ -3,8 +3,10 @@ FROM daocloud.io/library/php:7.2-fpm
 # Version
 ENV PHPREDIS_VERSION 3.1.6
 ENV AMQP_VERSION 1.9.3
-ENV SWOOLE_VERSION 4.2.12
-
+ENV SWOOLE_VERSION 4.3.4
+ENV COMPOSER_ALLOW_SUPERUSER 1
+ENV COMPOSER_HOME /tmp
+ENV COMPOSER_VERSION 1.6.5
 
 RUN sed -i "s/archive.ubuntu./mirrors.aliyun./g" /etc/apt/sources.list 
 RUN sed -i "s/deb.debian.org/mirrors.aliyun.com/g" /etc/apt/sources.list 
@@ -22,11 +24,13 @@ RUN apt-get update && apt-get install -y \
     libjpeg62-turbo-dev \
     libmcrypt-dev \
     zlib1g-dev \
-    librabbitmq-dev
+    librabbitmq-dev \
+    libxslt1-dev
 
 
 
 RUN docker-php-ext-configure intl \
+    && docker-php-ext-install bcmath \
     && docker-php-ext-install intl \
     && docker-php-ext-install mbstring \
     && docker-php-ext-install zip \
@@ -36,7 +40,9 @@ RUN docker-php-ext-configure intl \
     && docker-php-ext-install soap \
     && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
     && docker-php-ext-install -j$(nproc) gd \
-    && docker-php-ext-install opcache 
+    && docker-php-ext-install opcache \
+    && docker-php-ext-install xsl 
+
 
 
 
@@ -82,3 +88,11 @@ RUN curl -fsSL "http://pecl.php.net/get/redis-${PHPREDIS_VERSION}.tgz" -o redis.
     && rm -r redis \
     && docker-php-ext-enable redis 
 
+#composer安装
+RUN echo "memory_limit=-1" > "$PHP_INI_DIR/conf.d/memory-limit.ini" \
+    && echo "date.timezone=${PHP_TIMEZONE:-UTC}" > "$PHP_INI_DIR/conf.d/date_timezone.ini"
+
+
+RUN curl -fsSL "https://github.com/composer/composer/releases/download/${COMPOSER_VERSION}/composer.phar" -o composer.phar \
+    cp composer.phar /usr/bin/composer \
+    && chmod u+x /usr/bin/composer
