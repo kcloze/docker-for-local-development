@@ -1,0 +1,8 @@
+
+[credential]
+	helper = store
+[http]
+	sslVerify = false
+[core]
+	filemode = false
+
