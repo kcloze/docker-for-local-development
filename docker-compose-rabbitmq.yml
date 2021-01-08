@@ -1,0 +1,20 @@
+version: '3.7'
+
+services:
+  rabbitmq01:
+    image: rabbitmq:3.8-management
+    container_name: rabbitmq01
+    restart: always
+    environment:
+      RABBITMQ_ERLANG_COOKIE: mobe.cloud
+      RABBITMQ_DEFAULT_USER: admin
+      RABBITMQ_DEFAULT_PASS: 2xDKC2ievUoGDeY
+    hostname: rabbitmq.mobe.network
+    ports:
+      - 5672:5672
+      - 15672:15672
+
+networks:
+  default:
+    external:
+      name: mobe-network
